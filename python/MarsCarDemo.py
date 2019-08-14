@@ -6,6 +6,8 @@
 @time: 2019/04/25 
 """
 
+directions_map = {'N': 0, 'W': 1, 'S': 2, 'E': 3}
+directions_list = ['N', 'W', 'S', 'E']
 
 class MarsCarDemo:
 
@@ -30,23 +32,15 @@ class MarsCarDemo:
         self.marsCarPos["rip"] = pos["rip"]
 
     def turnLeft(self, pos):
-        directions_map = {'N': 0, 'W': 1, 'S': 2, 'E': 3}
-        directions_list = ['N', 'W', 'S', 'E']
         init_pos = self.marsCarPos["fc"]
         tar = directions_list[(directions_map[init_pos] + 1) % 4]
         pos["fc"] = tar
         self.setMarsCarPos(pos)
 
     def turnRight(self, pos):
-        fc = self.marsCarPos["fc"].lower()
-        if fc == "e":
-            pos["fc"] = "S"
-        elif fc == "s":
-            pos["fc"] = "W"
-        elif fc == "w":
-            pos["fc"] = "N"
-        elif fc == "n":
-            pos["fc"] = "E"
+        init_pos = self.marsCarPos["fc"]
+        tar = directions_list[(directions_map[init_pos] - 1) % 4]
+        pos["fc"] = tar
         self.setMarsCarPos(pos)
 
     def moveStep(self, pos):
