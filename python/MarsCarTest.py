@@ -9,6 +9,7 @@
 @Python  : 
 """
 
+import copy
 import unittest
 from MarsCarDemo import MarsCarDemo
 
@@ -32,7 +33,7 @@ class MyTestCase(unittest.TestCase):
         mc = MarsCarDemo()
         pos = {"x": 3, "y": 4, "fc": None, "rip": None}
         mc.setMarsCarPos(pos)
-        self.assertEqual(mc.marsCarPos, pos)
+        self.assertEqual(mc.getMarsCarPos(), pos)
 
     def test_turnLeft(self):
         mc = MarsCarDemo()
@@ -41,13 +42,13 @@ class MyTestCase(unittest.TestCase):
 
         directions_map = {'N': 0, 'W': 1, 'S': 2, 'E': 3}
         directions_list = ['N', 'W', 'S', 'E']
-        init_pos = mc.marsCarPos["fc"]
+        init_pos = mc.getMarsCarPos()["fc"]
         # print("init_pos:", init_pos)
         tar_pos = directions_list[(directions_map[init_pos] + 1) % 4]
         # print("tar_pos:", tar_pos)
 
         mc.turnLeft(pos)
-        self.assertEqual(mc.marsCarPos["fc"], tar_pos)
+        self.assertEqual(mc.getMarsCarPos()["fc"], tar_pos)
 
     def test_turnRight(self):
         mc = MarsCarDemo()
@@ -56,12 +57,37 @@ class MyTestCase(unittest.TestCase):
 
         directions_map = {'N': 0, 'W': 1, 'S': 2, 'E': 3}
         directions_list = ['N', 'W', 'S', 'E']
-        init_pos = mc.marsCarPos["fc"]
+        init_pos = mc.getMarsCarPos()["fc"]
         tar_pos = directions_list[(directions_map[init_pos] - 1) % 4]
 
         mc.turnRight(pos)
-        self.assertEqual(mc.marsCarPos["fc"], tar_pos)
+        self.assertEqual(mc.getMarsCarPos()["fc"], tar_pos)
 
+    def test_moveStep_rip(self):
+        mc = MarsCarDemo()
+        xy = {"xMax": 4, "yMax": 4}
+        mc.setXyMax(xy)
+        pos = {"x": 3, "y": 4, "fc": 'N', "rip": None}
+        mc.setMarsCarPos(pos)
+
+        # print(mc.getMarsCarPos())
+        mc.moveStep(pos)
+        # print(mc.getMarsCarPos())
+        self.assertEqual(mc.getMarsCarPos()["rip"], 'RIP')
+
+    def test_moveStep_alive(self):
+        mc = MarsCarDemo()
+        xy = {"xMax": 5, "yMax": 5}
+        mc.setXyMax(xy)
+        pos = {"x": 3, "y": 4, "fc": 'E', "rip": None}
+        mc.setMarsCarPos(pos)
+
+        tar_pos = copy.deepcopy(pos)
+        tar_pos['x'] += 1
+        # print(mc.getMarsCarPos())
+        mc.moveStep(pos)
+        # print(mc.getMarsCarPos())
+        self.assertEqual(mc.getMarsCarPos(), tar_pos)
 
 
 if __name__ == '__main__':
