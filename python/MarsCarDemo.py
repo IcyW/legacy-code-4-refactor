@@ -9,6 +9,7 @@
 directions_map = {'N': 0, 'W': 1, 'S': 2, 'E': 3}
 directions_list = ['N', 'W', 'S', 'E']
 
+
 class MarsCarDemo:
 
     def __init__(self):
@@ -68,16 +69,15 @@ class MarsCarDemo:
         self.setMarsCarPos(pos)
 
     def checkRipX(self, x):
-        if (x >= self.xyMax["xMax"]) or (x < 0):
-            return True
-        else:
-            return False
+        return self.checkRipXY(x, "x")
 
     def checkRipY(self, y):
-        if (y >= self.xyMax["yMax"]) or (y < 0):
-            return True
-        else:
+        return self.checkRipXY(y, "y")
+
+    def checkRipXY(self, z, tag):
+        if 0 <= z < self.xyMax[tag+"Max"]:
             return False
+        return True
 
     def exCmd(self, cmd, pos, cars=None):
         if len(cmd) > 0:

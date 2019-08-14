@@ -35,6 +35,28 @@ class MyTestCase(unittest.TestCase):
         mc.setMarsCarPos(pos)
         self.assertEqual(mc.getMarsCarPos(), pos)
 
+    def test_checkRipY_pass(self):
+        mc = MarsCarDemo()
+        xy = {"xMax": 5, "yMax": 5}
+        mc.setXyMax(xy)
+        y = 4
+        print(mc.checkRipY(y))
+        self.assertEqual(mc.checkRipY(y), False)
+
+    def test_checkRipY_bigger(self):
+        mc = MarsCarDemo()
+        xy = {"xMax": 5, "yMax": 5}
+        mc.setXyMax(xy)
+        y = 6
+        self.assertEqual(mc.checkRipY(y), True)
+
+    def test_checkRipY_smaller(self):
+        mc = MarsCarDemo()
+        xy = {"xMax": 5, "yMax": 5}
+        mc.setXyMax(xy)
+        y = -1
+        self.assertEqual(mc.checkRipY(y), True)
+
     def test_turnLeft(self):
         mc = MarsCarDemo()
         pos = {"x": 3, "y": 4, "fc": 'N', "rip": None}
