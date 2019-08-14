@@ -40,15 +40,9 @@ class MyTestCase(unittest.TestCase):
         pos = {"x": 3, "y": 4, "fc": 'N', "rip": None}
         mc.setMarsCarPos(pos)
 
-        directions_map = {'N': 0, 'W': 1, 'S': 2, 'E': 3}
-        directions_list = ['N', 'W', 'S', 'E']
-        init_pos = mc.getMarsCarPos()["fc"]
-        # print("init_pos:", init_pos)
-        tar_pos = directions_list[(directions_map[init_pos] + 1) % 4]
-        # print("tar_pos:", tar_pos)
-
+        tar_pos = {"x": 3, "y": 4, "fc": 'W', "rip": None}
         mc.turnLeft(pos)
-        self.assertEqual(mc.getMarsCarPos()["fc"], tar_pos)
+        self.assertEqual(mc.getMarsCarPos(), tar_pos)
 
     def test_turnRight(self):
         mc = MarsCarDemo()
