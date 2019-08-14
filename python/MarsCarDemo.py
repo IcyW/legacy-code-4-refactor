@@ -10,7 +10,6 @@
 class MarsCarDemo:
 
     def __init__(self):
-
         self.xyMax = {"xMax": 0, "yMax": 0}
         self.marsCarPos = {"x": 0, "y": 0, "fc": None, "rip": None}
 
@@ -72,7 +71,7 @@ class MarsCarDemo:
             else:
                 pos["x"] -= 1
         elif fc == "n":
-            if self.checkRipY(pos["y"]-1):
+            if self.checkRipY(pos["y"]+1):
                 pos["rip"] = "RIP"
             else:
                 pos["y"] += 1
@@ -120,3 +119,41 @@ class MarsCarDemo:
         if pos and cmd:
             self.setMarsCarPos(pos)
             self.exCmd(cmd, pos, cars)
+
+if __name__ == '__main__':
+    input1 = "55"
+    xyMax = {"xMax": int(input1[0]), "yMax": int(input1[1])}
+
+    ### Test case1
+
+    mc = MarsCarDemo()
+    mc.setXyMax(xyMax)
+    input2 = "12"
+    input3 = "N"
+    marsCarPos = {"x": int(input2[0]), "y": int(input2[1]), "fc": input3, "rip": None}
+    # mc.setMarsCarPos(marsCarPos)
+    input4 = "LMLMLMLMM"
+
+    cars = []
+    # car.marsCarPos = {"x": 0, "y": 0, "fc": None, "rip": None}
+    mc.marsCarRunning(pos=marsCarPos, cmd=input4, cars=cars)
+    output = str(mc.marsCarPos['x']) + str(mc.marsCarPos['y']) + " " + str(mc.marsCarPos['fc'])
+    if mc.marsCarPos['rip']:
+        output += " " + str(mc.marsCarPos['rip'])
+    print(output)
+
+    ### Test case2
+
+    mc1 = MarsCarDemo()
+    mc1.setXyMax(xyMax)
+    input2 = "33"
+    input3 = "E"
+    input4 = "MMM"
+    marsCarPos = {"x": int(input2[0]), "y": int(input2[1]), "fc": input3, "rip": None}
+
+    cars = []
+    mc1.marsCarRunning(pos=marsCarPos, cmd=input4, cars=cars)
+    output = str(mc1.marsCarPos['x']) + str(mc1.marsCarPos['y']) + " " + str(mc1.marsCarPos['fc'])
+    if mc1.marsCarPos['rip']:
+        output += " " + str(mc1.marsCarPos['rip'])
+    print(output)
